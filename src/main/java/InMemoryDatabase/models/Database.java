@@ -1,7 +1,4 @@
-package service;
-
-import InMemoryDatabase.models.Column;
-import InMemoryDatabase.models.Table;
+package InMemoryDatabase.models;
 
 import java.util.HashMap;
 import java.util.List;
@@ -45,5 +42,25 @@ public class Database {
         table.truncateRows();
     }
 
+    public void insertTableRows(String tableName, Map<Column, Object> columnValues) {
+
+        if(!checkIfTableExists(tableName)) return;
+        Table table = tableMap.get(tableName);
+        table.insertRow(columnValues);
+    }
+
+    public void printTableAllRows(String tableName) {
+
+        if(!checkIfTableExists(tableName)) return;
+        Table table = tableMap.get(tableName);
+        table.printRows();
+    }
+
+    public void filterTableRecordsByColumnValue(String tableName, Column column, Object value) {
+
+        if(!checkIfTableExists(tableName)) return;
+        Table table = tableMap.get(tableName);
+        table.getRecordsByColumnValue(column, value);
+    }
 
 }

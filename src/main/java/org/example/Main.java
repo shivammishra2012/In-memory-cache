@@ -1,17 +1,51 @@
 package org.example;
 
+import InMemoryDatabase.models.Column;
+import InMemoryDatabase.models.Database;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
+    private static final String tableName = "Employee";
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        Column name = new Column("name", Column.Type.STRING);
+        Column age = new Column("age", Column.Type.INT);
+        Column salary = new Column("salary", Column.Type.INT);
+        Database db = new Database("MyDB");
+        List<Column> columns = new ArrayList();
+        columns.add(name);
+        columns.add(age);
+        columns.add(salary);
+        db.createTable(tableName,columns);
+        Map<Column,Object> columnValues = new HashMap();
+        columnValues.put(name, "John");
+        columnValues.put(age, 25);
+        columnValues.put(salary, 10000);
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+        db.insertTableRows(tableName,columnValues);
+        columnValues.clear();
+        columnValues.put(name, "Kim");
+        columnValues.put(age, 28);
+        columnValues.clear();
+        columnValues.put(name, "Kim");
+        columnValues.put(age, 28);
+        columnValues.put(salary, 12000);
+        db.insertTableRows(tableName,columnValues);
+        db.printTableAllRows(tableName);
+        db.filterTableRecordsByColumnValue(tableName, age, 28);
+
+        db.filterTableRecordsByColumnValue(tableName, name, "John");
+        db.truncate(tableName);
+        db.dropTable(tableName);
+        db.printTableAllRows(tableName);
+
+
+
+
     }
 }

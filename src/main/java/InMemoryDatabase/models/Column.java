@@ -1,16 +1,19 @@
-package InMemoryDatabase;
+package InMemoryDatabase.models;
 
 public class Column {
+    private String columnName;
+    private Type columnType;
 
     public Column(String columnName, Type columnType) {
         this.columnName = columnName;
-        ColumnType = columnType;
+        columnType = columnType;
     }
 
-    private String columnName;
-    private Type ColumnType;
+    public String getColumnName() {
+        return columnName;
+    }
 
-    private enum Type{
+    public enum Type{
         INT,
         STRING
     };
